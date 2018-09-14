@@ -1,0 +1,24 @@
+{
+  "name": "vivekapi",
+  "version": "1.0.0",
+  "description": "API endpoint challenge with Vivek",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tylorhess/VivekAPI.git"
+  },
+  "author": "Tylor Hess",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tylorhess/VivekAPI/issues"
+  },
+  "homepage": "https://github.com/tylorhess/VivekAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
