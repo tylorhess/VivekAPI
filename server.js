@@ -4,8 +4,8 @@ let port = process.env.PORT || 3018; // process.env.PORT <--(for heroku)
 
 // use 'body-parser' module to parse HTTP requests
 let bodyParser = require('body-parser');
-app.use(bodyParser.json());	// contentType: 'application/json' 
-// app.use(bodyParser.urlencoded({ extended: true })); // contentType: 'application/x-www-form-urlencoded'
+// app.use(bodyParser.json());	// contentType: 'application/json' 
+app.use(bodyParser.urlencoded({ extended: true })); // contentType: 'application/x-www-form-urlencoded'
 
 //----- static server -----//
 app.use('/', express.static(__dirname+'/public')); // hosts any 'file.html' in 'public' folder at url.com/file.html
@@ -13,6 +13,48 @@ app.use('/', express.static(__dirname+'/public')); // hosts any 'file.html' in '
 //----- dynamic server -----//
 // CRUD = Create, Read, Update, Delete
 //      = POST    GET   PUT     DELETE
+
+app.get('/locations/search', (req, res, next) => {
+	let lat  = +req.query.lat;
+	let long = +req.query.long;
+
+	let locationsArray = getLocations();
+	let closestLocation = findClosestLocation(lat, long, locationsArray);
+	let photosIdArray = closestLocation.photos;
+	let photosArray = [];
+	for (let i = 0; i < photosIdArray.length; i++){
+		let photo = photosIdArray[i];
+		photosArray.push(getPhotoById(photo.id));
+	}
+
+	res.json(photosArray);
+	
+});
+function getLocations(){
+	let location = {
+		id: 'as98daw8dg',
+		name: 'location name',
+		lat: 123.456,
+		long: 234.567,
+		photos: [
+			'0a8sdyawh97h'
+		]
+	};
+	return [location];
+}
+function getPhotoById(id) {
+	let photo = {
+		id: '0a8sdyawh97h',
+		photo_uri: 'https://..',
+		tags: '#hastag'
+	};
+	return photo;
+}
+function findClosestLocation(lat, long, locationsArray) {
+	return locationsArray[0];
+}
+
+
 
 /*
 
